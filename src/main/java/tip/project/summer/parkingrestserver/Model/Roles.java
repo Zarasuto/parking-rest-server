@@ -17,13 +17,12 @@ public class Roles implements GrantedAuthority {
     @Column(name="role")
     private String role;
 
-    @ManyToOne
-    @JoinColumn(name="employee_id", referencedColumnName = "id", nullable = false)
-    private Employee employee;
+    @Column(name="employee_id")
+    private Long employee_id;
 
-    public Roles(String role ,Employee employee) {
+    public Roles(String role , Long employee_id) {
         this.role=role;
-        this.employee = employee;
+        this.employee_id = employee_id;
     }
 
     public Roles() {
@@ -46,12 +45,12 @@ public class Roles implements GrantedAuthority {
         this.role = role;
     }
 
-    public Employee getEmployee() {
-        return employee;
+    public Long getEmployee_id() {
+        return employee_id;
     }
 
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
+    public void setEmployee_id(Long employee) {
+        this.employee_id = employee;
     }
 
     @Override

@@ -25,7 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     @Override
     public void saveEmployeeToDatabase(Employee employee, String role) {
         employeeRepository.save(employee);
-        rolesRepository.save(new Roles(role,employee));
+        rolesRepository.save(new Roles(role,employee.getId()));
 
     }
 }
