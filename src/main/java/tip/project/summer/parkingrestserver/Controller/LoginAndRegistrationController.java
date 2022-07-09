@@ -20,7 +20,7 @@ public class LoginAndRegistrationController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
-    @PostMapping("/register")
+    @PostMapping("user/register")
     public ResponseEntity<String> registerEmployee(@RequestBody EmployeeDto employeeDto){
         Employee employee = new Employee();
         employee.setUsername(employeeDto.getUsername());
