@@ -25,7 +25,7 @@ public class Employee implements UserDetails {
     @Column(name="enabled")
     private boolean enabled;
 
-    @OneToMany(mappedBy = "employee",fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "employee_id",fetch=FetchType.EAGER)
     private List<Roles> rolesList;
 
 
