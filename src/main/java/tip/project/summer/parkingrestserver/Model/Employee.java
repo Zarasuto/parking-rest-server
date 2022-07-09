@@ -1,6 +1,5 @@
 package tip.project.summer.parkingrestserver.Model;
 
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
@@ -26,7 +25,7 @@ public class Employee implements UserDetails {
     private boolean enabled;
 
     @OneToMany(mappedBy = "employee_id",fetch=FetchType.EAGER)
-    private List<Roles> rolesList;
+    private List<Authorities> authoritiesList;
 
 
     public Employee() {
@@ -65,8 +64,8 @@ public class Employee implements UserDetails {
     }
 
     @Override
-    public Collection<Roles> getAuthorities() {
-        return rolesList;
+    public Collection<Authorities> getAuthorities() {
+        return authoritiesList;
     }
 
     public String getPassword() {

@@ -6,26 +6,26 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="roles",
-        uniqueConstraints = @UniqueConstraint(columnNames = {"employee_id","role"}))
-public class Roles implements GrantedAuthority {
+        uniqueConstraints = @UniqueConstraint(columnNames = {"employee_id","authority"}))
+public class Authorities implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="role")
-    private String role;
+    @Column(name="authority")
+    private String authority;
 
-    @Column(name="employee_id")
+    @Column(name="employee_id",nullable = false)
     private Long employee_id;
 
-    public Roles(String role , Long employee_id) {
-        this.role=role;
+    public Authorities(String authority, Long employee_id) {
+        this.authority = authority;
         this.employee_id = employee_id;
     }
 
-    public Roles() {
+    public Authorities() {
 
     }
 
@@ -37,14 +37,6 @@ public class Roles implements GrantedAuthority {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
     public Long getEmployee_id() {
         return employee_id;
     }
@@ -53,8 +45,12 @@ public class Roles implements GrantedAuthority {
         this.employee_id = employee;
     }
 
+    public void setAuthority(String authority){
+        this.authority=authority;
+    }
+
     @Override
     public String getAuthority() {
-        return role;
+        return authority;
     }
 }

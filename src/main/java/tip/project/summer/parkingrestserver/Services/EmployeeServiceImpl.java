@@ -3,9 +3,9 @@ package tip.project.summer.parkingrestserver.Services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tip.project.summer.parkingrestserver.Model.Employee;
-import tip.project.summer.parkingrestserver.Model.Roles;
+import tip.project.summer.parkingrestserver.Model.Authorities;
 import tip.project.summer.parkingrestserver.Repository.EmployeeRepository;
-import tip.project.summer.parkingrestserver.Repository.RolesRepository;
+import tip.project.summer.parkingrestserver.Repository.AuthoritiesRepository;
 
 @Component
 public class EmployeeServiceImpl implements EmployeeService{
@@ -14,7 +14,7 @@ public class EmployeeServiceImpl implements EmployeeService{
     private EmployeeRepository employeeRepository;
 
     @Autowired
-    private RolesRepository rolesRepository;
+    private AuthoritiesRepository authoritiesRepository;
 
 
     @Override
@@ -23,9 +23,9 @@ public class EmployeeServiceImpl implements EmployeeService{
     }
 
     @Override
-    public void saveEmployeeToDatabase(Employee employee, String role) {
+    public void saveEmployeeToDatabase(Employee employee, String authority) {
         employeeRepository.save(employee);
-        rolesRepository.save(new Roles(role,employee.getId()));
+        authoritiesRepository.save(new Authorities(authority,employee.getId()));
 
     }
 }
