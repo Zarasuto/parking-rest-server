@@ -16,7 +16,7 @@ public class Employee implements UserDetails {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name="username")
+    @Column(name="username",unique = true)
     private String username;
 
     @Column(name="password")
