@@ -30,7 +30,6 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-
         try{
             //Map the input into this variable
             EmployeeDto employee = new ObjectMapper().
@@ -66,5 +65,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
         response.addHeader("Authorization","Bearer "+token);
+    }
+
+    @Override
+    protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response, AuthenticationException failed) throws IOException, ServletException {
+        response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"Authentication Failed");
     }
 }
