@@ -1,7 +1,13 @@
 package tip.project.summer.parkingrestserver.AdminController;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tip.project.summer.parkingrestserver.Model.EmployeeDTO;
 import tip.project.summer.parkingrestserver.Services.EmployeeServiceImpl;
@@ -12,6 +18,8 @@ import java.util.List;
 @RestController
 public class EmployeeOperationsController {
 
+    Logger logger = LoggerFactory.getLogger(EmployeeOperationsController.class);
+
     @Autowired
     private EmployeeServiceImpl employeeService;
 
@@ -19,5 +27,16 @@ public class EmployeeOperationsController {
     private List<EmployeeDTO> getAllEmployee(){
         ArrayList<EmployeeDTO> employeeDTOS = employeeService.getAllEmployees();
         return employeeDTOS;
+    }
+
+    @PostMapping("api/admin/DeleteEmployee")
+    private ResponseEntity<String> deleteEmployee(@RequestBody EmployeeDTO employeeDTO){
+        try{
+            employeeService.deleteEmployee(employeeDTO.getUsername());
+            return new ResponseEntity<String>("Deletion Succesful", HttpStatus.OK);
+        }catch (IllegalArgumentException e){
+            logger.error(e.getMessage());
+            return new ResponseEntity<String>("Deletion Failed",HttpStatus.BAD_REQUEST);
+        }
     }
 }

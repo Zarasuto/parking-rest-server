@@ -1,5 +1,6 @@
 package tip.project.summer.parkingrestserver.Services;
 
+import org.hibernate.JDBCException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import tip.project.summer.parkingrestserver.Model.Employee;
@@ -43,6 +44,11 @@ public class EmployeeServiceImpl implements EmployeeService{
                     employee.getUsername()));
         }
         return employeeDTOList;
+    }
+
+    @Override
+    public void deleteEmployee(String username) throws IllegalArgumentException{
+        employeeRepository.delete(loadByUsername(username));
     }
 
 }

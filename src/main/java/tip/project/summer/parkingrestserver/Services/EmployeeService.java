@@ -9,4 +9,5 @@ public interface EmployeeService {
     Employee loadByUsername(String username);
     void saveEmployeeToDatabase(Employee employee, String authority);
     ArrayList<EmployeeDTO> getAllEmployees();
+    void deleteEmployee(String username);
 }
