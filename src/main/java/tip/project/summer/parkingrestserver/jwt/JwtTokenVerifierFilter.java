@@ -60,7 +60,10 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
             SecurityContextHolder.getContext().setAuthentication(authentication);
             filterChain.doFilter(request,response);
         }catch(JwtException e){
-            throw new IllegalStateException("Token cannot be Trusted");
+            response.setContentType("application/json");
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.getOutputStream().println("{\"error\": \""+ "Token cannot be trusted "+"\"," +
+                                                "\"Status\": \""+ "403"+"\"");
         }
     }
 }
