@@ -37,8 +37,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.csrf().disable()
 				.authorizeRequests()
 				// URLs matching for access rights
-				.antMatchers("/user/**").hasAnyAuthority("SUPER_USER", "ADMIN_USER", "SITE_USER")
-				.antMatchers("/**").permitAll()
+				.antMatchers("/api/admin/**").hasAnyAuthority("ADMIN_USER")
+				.antMatchers("/api/teller/**").hasAnyAuthority("TELLER_USER","ADMIN_USER")
+				.antMatchers("/api/security/**").hasAnyAuthority("SECURITY_USER","ADMIN_USER")
+				.antMatchers("/login").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))

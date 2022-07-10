@@ -1,4 +1,4 @@
-package tip.project.summer.parkingrestserver.Controller;
+package tip.project.summer.parkingrestserver.AdminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -20,7 +20,7 @@ public class LoginAndRegistrationController {
     @Autowired
     private EmployeeServiceImpl employeeService;
 
-    @PostMapping("user/register")
+    @PostMapping("api/admin/register")
     public ResponseEntity<String> registerEmployee(@RequestBody EmployeeDto employeeDto){
         Employee employee = new Employee();
         employee.setUsername(employeeDto.getUsername());
