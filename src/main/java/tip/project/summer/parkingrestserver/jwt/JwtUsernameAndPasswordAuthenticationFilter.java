@@ -8,7 +8,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import tip.project.summer.parkingrestserver.Model.EmployeeDto;
+import tip.project.summer.parkingrestserver.Model.EmployeeRegistrationDTO;
 import tip.project.summer.parkingrestserver.Model.Authorities;
 
 import javax.servlet.FilterChain;
@@ -33,9 +33,8 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         try{
             //Map the input into this variable
-            EmployeeDto employee = new ObjectMapper().
-                    readValue(request.getInputStream(), EmployeeDto.class );
-
+            EmployeeRegistrationDTO employee = new ObjectMapper().
+                    readValue(request.getInputStream(), EmployeeRegistrationDTO.class );
             //Put the already mapped variable into another new variable with Authentication class
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     employee.getUsername(),

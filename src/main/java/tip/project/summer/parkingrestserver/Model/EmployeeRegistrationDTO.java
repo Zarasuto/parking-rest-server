@@ -1,12 +1,12 @@
 package tip.project.summer.parkingrestserver.Model;
 
-public class EmployeeDto {
+public class EmployeeRegistrationDTO {
 
     private String username;
     private String password;
     private String role;
 
-    public EmployeeDto() {
+    public EmployeeRegistrationDTO() {
     }
 
     public String getUsername() {

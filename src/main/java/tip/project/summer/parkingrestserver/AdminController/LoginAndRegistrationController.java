@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tip.project.summer.parkingrestserver.Model.Employee;
-import tip.project.summer.parkingrestserver.Model.EmployeeDto;
+import tip.project.summer.parkingrestserver.Model.EmployeeRegistrationDTO;
 import tip.project.summer.parkingrestserver.Services.EmployeeServiceImpl;
 
 @RestController
@@ -21,11 +21,11 @@ public class LoginAndRegistrationController {
     private EmployeeServiceImpl employeeService;
 
     @PostMapping("api/admin/register")
-    public ResponseEntity<String> registerEmployee(@RequestBody EmployeeDto employeeDto){
+    public ResponseEntity<String> registerEmployee(@RequestBody EmployeeRegistrationDTO employeeRegistrationDTO){
         Employee employee = new Employee();
-        employee.setUsername(employeeDto.getUsername());
-        employee.setPassword(passwordEncoder.encode(employeeDto.getPassword()));
-        employeeService.saveEmployeeToDatabase(employee, employeeDto.getRole());
+        employee.setUsername(employeeRegistrationDTO.getUsername());
+        employee.setPassword(passwordEncoder.encode(employeeRegistrationDTO.getPassword()));
+        employeeService.saveEmployeeToDatabase(employee, employeeRegistrationDTO.getRole());
         return new ResponseEntity<String>("Registration Successful",HttpStatus.OK);
     }
 }
