@@ -29,8 +29,10 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response,
                                     FilterChain filterChain) throws ServletException, IOException {
+        //Get the token
         String authorizationHeader= request.getHeader("Authorization");
 
+        //Try if token is null or dont have Bearer tag
         if (Strings.isNullOrEmpty(authorizationHeader) || !authorizationHeader.startsWith("Bearer ")){
             filterChain.doFilter(request,response);
             return;
@@ -38,11 +40,14 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
         String secretKey="securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
         try{
             String token = authorizationHeader.replace("Bearer ","");
+
+            //Parses the token into Jws<Claims>
             Jws<Claims> claimsJws = Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(secretKey.getBytes()))
                     .build()
                     .parseClaimsJws(token);
 
+            //Parse the Jws<claims> and get the username and its authorities inside the token
             Claims body = claimsJws.getBody();
             String username = body.getSubject();
             Object data = body.get("data");
@@ -51,6 +56,7 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
             for(LinkedHashMap map:dataList){
                 authorityList.add(new ObjectMapper().convertValue(map,Authorities.class));
             }
+            //==========================
 
             Authentication authentication = new UsernamePasswordAuthenticationToken(
                     username,
@@ -58,6 +64,8 @@ public class JwtTokenVerifierFilter extends OncePerRequestFilter {
                     authorityList
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            //Pass the request and response to next filter, if there will be
             filterChain.doFilter(request,response);
         }catch(JwtException e){
             response.setContentType("application/json");
