@@ -41,6 +41,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 				.antMatchers("/api/teller/**").hasAnyAuthority("TELLER_USER","ADMIN_USER")
 				.antMatchers("/api/security/**").hasAnyAuthority("SECURITY_USER","ADMIN_USER")
 				.antMatchers("/login").permitAll()
+				.antMatchers("/error").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.addFilter(new JwtUsernameAndPasswordAuthenticationFilter(authenticationManager()))
