@@ -19,8 +19,8 @@ public class User {
     @OneToMany(mappedBy = "user", fetch= FetchType.EAGER)
     private List<Timestamps> timestamps;
 
-    @Column(name="parking_slot")
-    private String parking_slot;
+    @Column(name="parkingslot")
+    private String parkingslot;
 
     @Column(name="contactNum")
     private Double contactnum;
@@ -68,11 +68,11 @@ public class User {
         this.platenum = platenum;
     }
 
-    public String getParking_slot() {
-        return parking_slot;
+    public String getParkingslot() {
+        return parkingslot;
     }
 
-    public void setParking_slot(String parking_slot) {
-        this.parking_slot = parking_slot;
+    public void setParkingslot(String parking_slot) {
+        this.parkingslot = parking_slot;
     }
 }
