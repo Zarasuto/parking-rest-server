@@ -3,19 +3,12 @@ package tip.project.summer.parkingrestserver.Model;
 import java.sql.Timestamp;
 
 public class UserDTO {
-    private String UID;
     private String parking_slot;
     private String timeStamp;
     private double contactNum;
     private String plateNum;
+    private String uid;
 
-    public String getUID() {
-        return UID;
-    }
-
-    public void setUID(String UID) {
-        this.UID = UID;
-    }
 
     public String getParking_slot() {
         return parking_slot;
@@ -47,5 +40,13 @@ public class UserDTO {
 
     public void setPlateNum(String plateNum) {
         this.plateNum = plateNum;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 }
