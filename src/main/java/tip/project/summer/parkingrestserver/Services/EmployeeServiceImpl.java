@@ -51,4 +51,9 @@ public class EmployeeServiceImpl implements EmployeeService{
         employeeRepository.delete(loadByUsername(username));
     }
 
+    @Override
+    public void changePassword(String username,String password) throws IllegalArgumentException{
+        employeeRepository.updatePassword(loadByUsername(username).getId(),password);
+    }
+
 }

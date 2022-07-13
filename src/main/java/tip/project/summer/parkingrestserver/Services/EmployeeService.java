@@ -10,4 +10,5 @@ public interface EmployeeService {
     void saveEmployeeToDatabase(Employee employee, String authority);
     ArrayList<EmployeeDTO> getAllEmployees();
     void deleteEmployee(String username);
+    void changePassword(String username,String password);
 }
