@@ -25,6 +25,10 @@ public class Timestamps {
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
     private User user;
 
+    public Timestamps() {
+
+    }
+
     public Long getId() {
         return id;
     }
