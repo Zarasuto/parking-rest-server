@@ -16,6 +16,11 @@ public class Timestamps {
     @Column(name="timestamp")
     private Timestamp timestamp;
 
+    public Timestamps(Timestamp timestamp, User user) {
+        this.timestamp = timestamp;
+        this.user = user;
+    }
+
     @ManyToOne
     @JoinColumn(name="user_id", referencedColumnName = "id", nullable = false)
     private User user;
