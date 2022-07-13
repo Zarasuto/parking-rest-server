@@ -1,6 +1,7 @@
 package tip.project.summer.parkingrestserver.AdminController;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,15 @@ public class LoginAndRegistrationController {
         Employee employee = new Employee();
         employee.setUsername(employeeRegistrationDTO.getUsername());
         employee.setPassword(passwordEncoder.encode(employeeRegistrationDTO.getPassword()));
-        employeeService.saveEmployeeToDatabase(employee, employeeRegistrationDTO.getRole());
-        return new ResponseEntity<String>("Registration Successful",HttpStatus.OK);
+        try{
+            if(employeeService.loadByUsername(employee.getUsername())==null){
+                employeeService.saveEmployeeToDatabase(employee, employeeRegistrationDTO.getRole());
+                return new ResponseEntity<String>("Registration Successful",HttpStatus.OK);
+            }else{
+                return new ResponseEntity<String>("Username Already Taken", HttpStatus.UNPROCESSABLE_ENTITY);
+            }
+        }catch(IncorrectResultSizeDataAccessException e){
+            return new ResponseEntity<String>("Username Already Taken", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
     }
 }
