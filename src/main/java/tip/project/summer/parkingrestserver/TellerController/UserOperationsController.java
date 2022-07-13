@@ -44,4 +44,14 @@ public class UserOperationsController {
         ArrayList<UserDTO> userDTOArrayList = userService.getAllParkedUsers();
         return userDTOArrayList;
     }
+
+    @GetMapping("api/teller/getuserinfo")
+    public UserDTO getUserInfo(@RequestBody String UID){
+        try{
+            return userService.getUserInfo(UID);
+        }catch(IllegalArgumentException ex){
+            logger.warn(ex.getMessage());
+            return null;
+        }
+    }
 }

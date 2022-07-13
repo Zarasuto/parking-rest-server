@@ -9,4 +9,5 @@ public interface UserService {
 
     void addUserToDatabase(User user, String timestamp);
     ArrayList<UserDTO> getAllParkedUsers();
+    UserDTO getUserInfo(String uid);
 }

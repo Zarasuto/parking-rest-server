@@ -47,6 +47,21 @@ public class UserServiceImpl implements UserService{
         return userDTOArrayList;
     }
 
+    @Override
+    public UserDTO getUserInfo(String uid) throws IllegalArgumentException{
+        User user = userRepository.findByUid(uid);
+        if(user==null){
+            throw new IllegalArgumentException("No UID found");
+        }
+        UserDTO userDTO = new UserDTO();
+        userDTO.setUid(user.getUid());
+        userDTO.setContactNum(user.getContactnum());
+        userDTO.setParking_slot(user.getParkingslot());
+        userDTO.setPlateNum(user.getPlatenum());
+        userDTO.setTimeStamp(user.getTimestamps().iterator().next().getTimestamp().toString());
+        return userDTO;
+    }
+
     private Timestamp parseTimestamp(String timestamp) {
         try {
             return new Timestamp(DATE_TIME_FORMAT.parse(timestamp).getTime());
