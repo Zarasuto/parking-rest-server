@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import tip.project.summer.parkingrestserver.Model.User;
 import tip.project.summer.parkingrestserver.Model.UserDTO;
+import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
 import tip.project.summer.parkingrestserver.Services.UserServiceImpl;
 
 import java.util.ArrayList;
@@ -53,5 +54,10 @@ public class UserOperationsController {
             logger.warn(ex.getMessage());
             return null;
         }
+    }
+
+    @GetMapping("api/teller/getallusers")
+    public ArrayList<UserDTOWithTimestampList> getAllUsers(){
+        return userService.getAllUsers();
     }
 }

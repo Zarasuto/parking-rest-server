@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import tip.project.summer.parkingrestserver.Model.Timestamps;
 import tip.project.summer.parkingrestserver.Model.User;
 import tip.project.summer.parkingrestserver.Model.UserDTO;
+import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
 import tip.project.summer.parkingrestserver.Repository.TimestampRepository;
 import tip.project.summer.parkingrestserver.Repository.UserRepository;
 
@@ -12,6 +13,7 @@ import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -60,6 +62,24 @@ public class UserServiceImpl implements UserService{
         userDTO.setPlateNum(user.getPlatenum());
         userDTO.setTimeStamp(user.getTimestamps().iterator().next().getTimestamp().toString());
         return userDTO;
+    }
+
+    @Override
+    public ArrayList<UserDTOWithTimestampList> getAllUsers() {
+        ArrayList<UserDTOWithTimestampList> userArrayList = new ArrayList<>();
+        for(User user : userRepository.findAll()){
+            UserDTOWithTimestampList userDTOWithTimestampList = new UserDTOWithTimestampList();
+            Iterator<Timestamps> timestampsIterator = user.getTimestamps().iterator();
+            while(timestampsIterator.hasNext()){
+                userDTOWithTimestampList.getTimeStamp().add(timestampsIterator.next().getTimestamp().toString());
+            }
+            userDTOWithTimestampList.setContactNum(user.getContactnum());
+            userDTOWithTimestampList.setUid(user.getUid());
+            userDTOWithTimestampList.setParking_slot(user.getParkingslot());
+            userDTOWithTimestampList.setPlateNum(user.getPlatenum());
+            userArrayList.add(userDTOWithTimestampList);
+        }
+        return userArrayList;
     }
 
     private Timestamp parseTimestamp(String timestamp) {
