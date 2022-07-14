@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ParkingRestServerApplication {
 
-    @GetMapping("/message")
+    @GetMapping("/")
     public String start(){
         return "REST Parking Server";
     }
