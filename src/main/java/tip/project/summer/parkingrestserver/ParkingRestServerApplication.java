@@ -10,10 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 public class ParkingRestServerApplication extends SpringBootServletInitializer {
 
-    @Override
-    protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(ParkingRestServerApplication.class);
-    }
 
     public static void main(String[] args) {
         SpringApplication.run(ParkingRestServerApplication.class, args);
