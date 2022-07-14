@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'parking-rest-server'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_0632C7DAD814441F88C5D5CDFA70BA52 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_75F4142E94014487A8E7EA311F960AD4 }}
           package: '*.war'
