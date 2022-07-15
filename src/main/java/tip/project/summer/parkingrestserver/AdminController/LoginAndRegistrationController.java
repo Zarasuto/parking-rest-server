@@ -5,6 +5,7 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,16 @@ public class LoginAndRegistrationController {
             }
         }catch(IncorrectResultSizeDataAccessException e){
             return new ResponseEntity<String>("Username Already Taken", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @GetMapping("/")
+    public void start(){
+        if(employeeService.getAllEmployees().size()==0){
+            Employee employee = new Employee();
+            employee.setUsername("admin");
+            employee.setPassword(passwordEncoder.encode("admin"));
+            employeeService.saveEmployeeToDatabase(employee,"ADMIN_USER");
         }
     }
 }
