@@ -93,6 +93,7 @@ public class UserServiceImpl implements UserService{
         if(user==null){
             throw new IllegalArgumentException("No UID Found");
         }
+        userRepository.updateParkingSlot(user.getId());
         signoutRepository.save(new SignOut(parseTimestamp(timestamp),user));
     }
 
