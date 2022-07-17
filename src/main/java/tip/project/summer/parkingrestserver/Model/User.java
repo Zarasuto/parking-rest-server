@@ -19,6 +19,9 @@ public class User {
     @OneToMany(mappedBy = "user", fetch= FetchType.EAGER)
     private List<Timestamps> timestamps;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<SignOut> signouts;
+
     @Column(name="parkingslot")
     private String parkingslot;
 
@@ -27,6 +30,14 @@ public class User {
 
     @Column(name="plateNum")
     private String platenum;
+
+    public List<SignOut> getSignouts() {
+        return signouts;
+    }
+
+    public void setSignouts(List<SignOut> signouts) {
+        this.signouts = signouts;
+    }
 
     public Long getId() {
         return id;

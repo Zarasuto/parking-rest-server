@@ -6,11 +6,21 @@ public class UserDTOWithTimestampList {
     private String uid;
     private String parking_slot;
     private ArrayList<String> timeStamp;
+    private ArrayList<String> signouts;
     private double contactNum;
     private String plateNum;
 
+    public ArrayList<String> getSignouts() {
+        return signouts;
+    }
+
+    public void setSignouts(ArrayList<String> signouts) {
+        this.signouts = signouts;
+    }
+
     public UserDTOWithTimestampList() {
         this.timeStamp = new ArrayList<>();
+        this.signouts = new ArrayList<>();
     }
 
     public String getParking_slot() {

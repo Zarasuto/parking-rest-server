@@ -2,10 +2,8 @@ package tip.project.summer.parkingrestserver.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import tip.project.summer.parkingrestserver.Model.Timestamps;
-import tip.project.summer.parkingrestserver.Model.User;
-import tip.project.summer.parkingrestserver.Model.UserDTO;
-import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
+import tip.project.summer.parkingrestserver.Model.*;
+import tip.project.summer.parkingrestserver.Repository.SignoutRepository;
 import tip.project.summer.parkingrestserver.Repository.TimestampRepository;
 import tip.project.summer.parkingrestserver.Repository.UserRepository;
 
@@ -24,6 +22,9 @@ public class UserServiceImpl implements UserService{
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SignoutRepository signoutRepository;
 
     private final SimpleDateFormat DATE_TIME_FORMAT = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -70,8 +71,12 @@ public class UserServiceImpl implements UserService{
         for(User user : userRepository.findAll()){
             UserDTOWithTimestampList userDTOWithTimestampList = new UserDTOWithTimestampList();
             Iterator<Timestamps> timestampsIterator = user.getTimestamps().iterator();
+            Iterator<SignOut> signOutIterator = user.getSignouts().iterator();
             while(timestampsIterator.hasNext()){
                 userDTOWithTimestampList.getTimeStamp().add(timestampsIterator.next().getTimestamp().toString());
+            }
+            while(signOutIterator.hasNext()){
+                userDTOWithTimestampList.getSignouts().add(signOutIterator.next().getTimestamp().toString());
             }
             userDTOWithTimestampList.setContactNum(user.getContactnum());
             userDTOWithTimestampList.setUid(user.getUid());
@@ -80,6 +85,15 @@ public class UserServiceImpl implements UserService{
             userArrayList.add(userDTOWithTimestampList);
         }
         return userArrayList;
+    }
+
+    @Override
+    public void SignoutUser(String uid, String timestamp) throws IllegalArgumentException{
+        User user = userRepository.findByUid(uid);
+        if(user==null){
+            throw new IllegalArgumentException("No UID Found");
+        }
+        signoutRepository.save(new SignOut(parseTimestamp(timestamp),user));
     }
 
     private Timestamp parseTimestamp(String timestamp) {

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import tip.project.summer.parkingrestserver.Model.SignOutDTO;
 import tip.project.summer.parkingrestserver.Model.User;
 import tip.project.summer.parkingrestserver.Model.UserDTO;
 import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
@@ -37,6 +38,17 @@ public class UserOperationsController {
         }catch(IllegalArgumentException ex){
             logger.error(ex.getMessage());
             return new ResponseEntity<>("User creation failed", HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PostMapping("api/teller/signout")
+    public ResponseEntity<String> signout(@RequestBody SignOutDTO signOutDTO){
+        try{
+            userService.SignoutUser(signOutDTO.getUid(),signOutDTO.getTimestamp());
+            return new ResponseEntity<>("Signout successful", HttpStatus.OK);
+        }catch(IllegalArgumentException ex){
+            logger.error(ex.getMessage());
+            return new ResponseEntity<>("Signout failed", HttpStatus.BAD_REQUEST);
         }
     }
 
