@@ -3,6 +3,7 @@ package tip.project.summer.parkingrestserver.TellerController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import tip.project.summer.parkingrestserver.Model.UserDTO;
 import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
 import tip.project.summer.parkingrestserver.Services.UserServiceImpl;
 
+import javax.persistence.NonUniqueResultException;
 import java.util.ArrayList;
 
 @RestController
@@ -38,6 +40,9 @@ public class UserOperationsController {
         }catch(IllegalArgumentException ex){
             logger.error(ex.getMessage());
             return new ResponseEntity<>("User creation failed", HttpStatus.BAD_REQUEST);
+        }catch(NonUniqueResultException ex){
+            logger.error(ex.getMessage());
+            return new ResponseEntity<>("UID already Created",HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
@@ -64,6 +69,9 @@ public class UserOperationsController {
             return userService.getUserInfo(UID);
         }catch(IllegalArgumentException ex){
             logger.warn(ex.getMessage());
+            return null;
+        }catch(IncorrectResultSizeDataAccessException ex){
+            logger.error(ex.getMessage());
             return null;
         }
     }
