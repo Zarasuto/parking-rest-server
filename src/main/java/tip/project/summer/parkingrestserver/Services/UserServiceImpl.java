@@ -103,10 +103,12 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public void SignoutUser(String uid, String timestamp) throws IllegalArgumentException{
+    public void SignoutUser(String uid, String timestamp) throws IllegalArgumentException,NonUniqueResultException{
         User user = userRepository.findByUid(uid);
         if(user==null){
             throw new IllegalArgumentException("No UID Found");
+        }else if(user.getParkingslot()==null){
+            throw new NonUniqueResultException("User already signed out");
         }
         userRepository.updateParkingSlot(user.getId());
         signoutRepository.save(new SignOut(parseTimestamp(timestamp),user));

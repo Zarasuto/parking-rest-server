@@ -55,6 +55,9 @@ public class UserOperationsController {
         }catch(IllegalArgumentException ex){
             logger.error(ex.getMessage());
             return new ResponseEntity<>("Signout failed", HttpStatus.BAD_REQUEST);
+        }catch(NonUniqueResultException ex){
+            logger.warn(ex.getMessage());
+            return new ResponseEntity<>("Already signed out", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 
