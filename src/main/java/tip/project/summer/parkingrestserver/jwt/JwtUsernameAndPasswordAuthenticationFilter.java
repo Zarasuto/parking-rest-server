@@ -57,6 +57,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                                             Authentication authResult) throws IOException, ServletException {
 
         String key = "securesecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecuresecure";
+        String authority= authResult.getAuthorities().iterator().next().getAuthority();
         String token = Jwts.builder()
                 .setSubject(authResult.getName())
                 .claim("data", authResult.getAuthorities())
@@ -65,6 +66,7 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
                 .signWith(Keys.hmacShaKeyFor(key.getBytes()))
                 .compact();
         response.addHeader("Authorization","Bearer "+token);
+        response.addHeader("Expect",authority);
     }
 
     @Override
