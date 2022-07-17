@@ -64,10 +64,10 @@ public class UserOperationsController {
         return userDTOArrayList;
     }
 
-    @GetMapping("api/teller/getuserinfo")
+    @PostMapping("api/teller/getuserinfo")
     public UserDTO getUserInfo(@RequestBody Map<String,String> UID){
         try{
-            return userService.getUserInfo(UID.get("String"));
+            return userService.getUserInfo(UID.get("uid"));
         }catch(IllegalArgumentException ex){
             logger.warn(ex.getMessage());
             return null;
