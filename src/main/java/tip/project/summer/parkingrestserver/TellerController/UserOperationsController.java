@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import tip.project.summer.parkingrestserver.Model.SignOutDTO;
-import tip.project.summer.parkingrestserver.Model.User;
-import tip.project.summer.parkingrestserver.Model.UserDTO;
-import tip.project.summer.parkingrestserver.Model.UserDTOWithTimestampList;
+import tip.project.summer.parkingrestserver.Model.*;
 import tip.project.summer.parkingrestserver.Services.UserServiceImpl;
 
 import javax.persistence.NonUniqueResultException;
@@ -58,6 +55,20 @@ public class UserOperationsController {
         }catch(NonUniqueResultException ex){
             logger.warn(ex.getMessage());
             return new ResponseEntity<>("Already signed out", HttpStatus.UNPROCESSABLE_ENTITY);
+        }
+    }
+
+    @PostMapping("api/teller/signin")
+    public ResponseEntity<String> signin(@RequestBody SigninDTO signinDTO){
+        try{
+            userService.SigninUser(signinDTO.getUid(),signinDTO.getTimestamp(),signinDTO.getParkingslot());
+            return new ResponseEntity<>("Signin successful", HttpStatus.OK);
+        }catch(IllegalArgumentException ex){
+            logger.error(ex.getMessage());
+            return new ResponseEntity<>("Signin failed", HttpStatus.BAD_REQUEST);
+        }catch(NonUniqueResultException ex){
+            logger.warn(ex.getMessage());
+            return new ResponseEntity<>("Already signed in", HttpStatus.UNPROCESSABLE_ENTITY);
         }
     }
 

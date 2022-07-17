@@ -110,8 +110,20 @@ public class UserServiceImpl implements UserService{
         }else if(user.getParkingslot()==null){
             throw new NonUniqueResultException("User already signed out");
         }
-        userRepository.updateParkingSlot(user.getId());
+        userRepository.updateParkingSlot(user.getId(),null);
         signoutRepository.save(new SignOut(parseTimestamp(timestamp),user));
+    }
+
+    @Override
+    public void SigninUser(String uid, String timestamp, String parkingslot) throws IllegalArgumentException,NonUniqueResultException{
+        User user = userRepository.findByUid(uid);
+        if(user==null){
+            throw new IllegalArgumentException("No UID Found");
+        }else if(user.getParkingslot()!=null){
+            throw new NonUniqueResultException("User already signed in");
+        }
+        userRepository.updateParkingSlot(user.getId(),parkingslot);
+        timestampRepository.save(new Timestamps(parseTimestamp(timestamp),user));
     }
 
     private Timestamp parseTimestamp(String timestamp) {

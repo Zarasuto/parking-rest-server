@@ -16,6 +16,6 @@ public interface UserRepository extends JpaRepository<User,Long>{
 
     @Transactional
     @Modifying
-    @Query(value="update User u set u.parkingslot=null where u.id=:id")
-    void updateParkingSlot(@Param(value="id") long id);
+    @Query(value="update User u set u.parkingslot=:parkingslot where u.id=:id")
+    void updateParkingSlot(@Param(value="id") long id,@Param(value="parkingslot") String parkingslot);
 }

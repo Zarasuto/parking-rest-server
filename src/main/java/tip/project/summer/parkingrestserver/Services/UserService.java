@@ -14,4 +14,5 @@ public interface UserService {
     UserDTO getUserInfo(String uid);
     ArrayList<UserDTOWithTimestampList> getAllUsers();
     void SignoutUser(String uid, String timestamp);
+    void SigninUser(String uid, String timestamp,String parkingslot);
 }
