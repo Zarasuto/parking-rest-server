@@ -18,6 +18,7 @@ import tip.project.summer.parkingrestserver.Services.UserServiceImpl;
 
 import javax.persistence.NonUniqueResultException;
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 public class UserOperationsController {
@@ -64,9 +65,9 @@ public class UserOperationsController {
     }
 
     @GetMapping("api/teller/getuserinfo")
-    public UserDTO getUserInfo(@RequestBody String UID){
+    public UserDTO getUserInfo(@RequestBody Map<String,String> UID){
         try{
-            return userService.getUserInfo(UID);
+            return userService.getUserInfo(UID.get("String"));
         }catch(IllegalArgumentException ex){
             logger.warn(ex.getMessage());
             return null;
