@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 public class UserDTO {
     private String parking_slot;
     private String timeStamp;
-    private double contactNum;
+    private String contactNum;
     private String plateNum;
     private String uid;
 
@@ -26,11 +26,11 @@ public class UserDTO {
         this.timeStamp = timeStamp;
     }
 
-    public double getContactNum() {
+    public String getContactNum() {
         return contactNum;
     }
 
-    public void setContactNum(double contactNum) {
+    public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
     }
 

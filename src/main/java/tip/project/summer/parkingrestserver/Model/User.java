@@ -26,7 +26,7 @@ public class User {
     private String parkingslot;
 
     @Column(name="contactNum")
-    private Double contactnum;
+    private String contactnum;
 
     @Column(name="plateNum")
     private String platenum;
@@ -63,11 +63,11 @@ public class User {
         this.timestamps = timestamps;
     }
 
-    public Double getContactnum() {
+    public String getContactnum() {
         return contactnum;
     }
 
-    public void setContactnum(Double contactnum) {
+    public void setContactnum(String contactnum) {
         this.contactnum = contactnum;
     }
 

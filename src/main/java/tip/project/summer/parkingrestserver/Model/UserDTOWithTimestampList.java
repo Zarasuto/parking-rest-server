@@ -7,7 +7,7 @@ public class UserDTOWithTimestampList {
     private String parking_slot;
     private ArrayList<String> timeStamp;
     private ArrayList<String> signouts;
-    private double contactNum;
+    private String contactNum;
     private String plateNum;
 
     public ArrayList<String> getSignouts() {
@@ -31,11 +31,11 @@ public class UserDTOWithTimestampList {
         this.parking_slot = parking_slot;
     }
 
-    public double getContactNum() {
+    public String getContactNum() {
         return contactNum;
     }
 
-    public void setContactNum(double contactNum) {
+    public void setContactNum(String contactNum) {
         this.contactNum = contactNum;
     }
 
